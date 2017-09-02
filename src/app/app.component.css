@@ -1,0 +1,36 @@
+.jumbotron {
+    background-color: #eee;
+}
+
+.margin-r-20 {
+    margin-right: 20px;
+}
+
+.margin-l-20 {
+    margin-left: 20px;
+}
+
+.margin-r-10 {
+    margin-right: 10px;
+}
+
+.error>span {
+    color: red;
+}
+
+.close-x {
+    color: #f13939
+}
+
+.list-scroll {
+    max-height: 800px;
+    overflow-y: scroll;
+}
+
+.edit-x {
+    color: #3291e2
+}
+
+.clone-x {
+    color: #ec971f
+}

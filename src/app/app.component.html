@@ -1,20 +1,101 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{title}}!
-  </h1>
-  <img width="300" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxOS4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjAgMCAyNTAgMjUwIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAyNTAgMjUwOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8c3R5bGUgdHlwZT0idGV4dC9jc3MiPg0KCS5zdDB7ZmlsbDojREQwMDMxO30NCgkuc3Qxe2ZpbGw6I0MzMDAyRjt9DQoJLnN0MntmaWxsOiNGRkZGRkY7fQ0KPC9zdHlsZT4NCjxnPg0KCTxwb2x5Z29uIGNsYXNzPSJzdDAiIHBvaW50cz0iMTI1LDMwIDEyNSwzMCAxMjUsMzAgMzEuOSw2My4yIDQ2LjEsMTg2LjMgMTI1LDIzMCAxMjUsMjMwIDEyNSwyMzAgMjAzLjksMTg2LjMgMjE4LjEsNjMuMiAJIi8+DQoJPHBvbHlnb24gY2xhc3M9InN0MSIgcG9pbnRzPSIxMjUsMzAgMTI1LDUyLjIgMTI1LDUyLjEgMTI1LDE1My40IDEyNSwxNTMuNCAxMjUsMjMwIDEyNSwyMzAgMjAzLjksMTg2LjMgMjE4LjEsNjMuMiAxMjUsMzAgCSIvPg0KCTxwYXRoIGNsYXNzPSJzdDIiIGQ9Ik0xMjUsNTIuMUw2Ni44LDE4Mi42aDBoMjEuN2gwbDExLjctMjkuMmg0OS40bDExLjcsMjkuMmgwaDIxLjdoMEwxMjUsNTIuMUwxMjUsNTIuMUwxMjUsNTIuMUwxMjUsNTIuMQ0KCQlMMTI1LDUyLjF6IE0xNDIsMTM1LjRIMTA4bDE3LTQwLjlMMTQyLDEzNS40eiIvPg0KPC9nPg0KPC9zdmc+DQo=">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" href="https://blog.angular.io//">Angular blog</a></h2>
-  </li>
-</ul>
+<nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    <a class="navbar-brand" href="#">Reactive Forms</a>
+</nav>
 
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron" style="background-color: white;">
+    <button type="button" [hidden]=" !items || items.length == 0" class="btn btn-danger pull-right margin-r-20" (click)="removeAll()">Remove all users</button>
+</div>
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-6">
+
+            <div class="card">
+                <div class="card-header">
+                    <h1> {{isUpdate ? 'Edit' : 'Add'}} details</h1>
+                </div>
+                <div class="card-block">
+                    <form novalidate [formGroup]='group' (ngSubmit)="storeData(group)">
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" class="form-control" formControlName='firstName' placeholder="Enter first name">
+                            <!--firstName -  validation section STARTS-->
+                            <span *ngIf="hasError" class="error">
+                                <span *ngIf="group.get('firstName').hasError('required')">First name required</span>
+                            <span *ngIf="group.get('firstName').hasError('minlength')">First name length should contain atleast 3 letters</span>
+                            <span *ngIf="group.get('firstName').hasError('maxlength')">First name should contain less than 20 letters</span>
+                            </span>
+                            <!-- firstName - validation section ENDS-->
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" class="form-control" formControlName='lastName' placeholder="Enter last name">
+                            <!--lastName -  validation section STARTS-->
+                            <span *ngIf="hasError" class="error">
+                                <span *ngIf="group.get('lastName').hasError('required')">Last name required</span>
+                            <span *ngIf="group.get('lastName').hasError('minlength')">Last name length should contain atleast 3 letters</span>
+                            <span *ngIf="group.get('lastName').hasError('maxlength')">Last name should contain less than 20 letters</span>
+                            </span>
+                            <!-- lastName - validation section ENDS-->
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" class="form-control" formControlName='email' placeholder="Enter email">
+                            <!--email -  validation section STARTS-->
+                            <span *ngIf="hasError" class="error">
+                                <span *ngIf="group.get('email').hasError('required')">Email required</span>
+                            <span *ngIf="group.get('email').hasError('pattern')">Invalid email </span>
+                            </span>
+                            <!-- email - validation section ENDS-->
+                        </div>
+                        <div class="form-group">
+                            <label>Contact No</label>
+                            <input type="text" class="form-control" formControlName='contactNo' placeholder="Enter contact no">
+                            <!--contactNo -  validation section STARTS-->
+                            <span *ngIf="hasError" class="error">
+                                <span *ngIf="group.get('contactNo').hasError('required')">Contact No required</span>
+                            <span *ngIf="group.get('contactNo').hasError('minlength') || group.get('contactNo').hasError('maxlength')">Invalid Contact number</span>
+                            </span>
+                            <!-- contactNo - validation section ENDS-->
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success margin-l-20"> {{isUpdate ? 'Update' : 'Save'}}</button>
+                            <button type="reset" (click)="clearForm()" class="btn btn-warning margin-l-20">Clear</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div [ngClass]="{'list-scroll': items?.length > 4}" class="col-md-6 ">
+            <div class="card" *ngFor="let user of items | async;let i = index">
+                <div class="card-block">
+                    <span class="h5" [hidden]="isUpdate && currentIndex == i">
+                    <span class="pull-right" (click)="remove(user)"><i class="fa fa-times-circle  close-x" aria-hidden="true"></i></span>
+                    <span class="pull-right" (click)="edit(user)"><i class="fa fa-pencil margin-r-10 edit-x" aria-hidden="true"></i></span>
+                    </span>
+                    <span class="pull-right" (click)="clone(user)"><i class="fa fa-clone margin-r-10 clone-x" aria-hidden="true"></i></span>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h4><i class="fa fa-user-circle-o fa-4x" aria-hidden="true"></i></h4>
+                        </div>
+                        <div class="col-md-8">
+                            <p> FullName : {{user.fullName}}</p>
+                            <p> Email : {{user.email}}</p>
+                            <p> Contact no : {{user.contactNo}}</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- /container -->
